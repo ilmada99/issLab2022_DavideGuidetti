@@ -231,8 +231,9 @@ Si desidera costruire una applicazione software capace di:
 
 <h2>Project</h2> 
 1) Collego al raspberry l'hardware necessario (Sonar e led).<br>
-2) Modifico i file RadarUsageMain.java implementando una socket UDP.<br>
-3) Partendo dal file SonarAlone.c implemento il file LedBlinkSonarUDP.c in grado di gestire il sonar e il blink del led attraverso una comunicazione UDP.<br>
+2) Modifico i file <a class="reference external" href="../src/it/unibo/radarSystem22/main/RadarUsageMain.java">RadarUsageMain.java</a> implementando una socket UDP.<br>
+   Inoltre, per gestire la comunicazione UDP, si è fatto uso del file java <a class="reference external" href="../src/it/unibo/radarSystem22/main/ConnClient.java">ConnClient.java</a><br>
+3) Partendo dal file SonarAlone.c implemento il file <a class="reference external" href="../resources/LedBlinkSonarUDP.c">LedBlinkSonarUDP.c</a>  in grado di gestire il sonar e il blink del led attraverso una comunicazione UDP.<br>
 4) Compilo il file .c e lo avvio all'interno del raspberry e avvio il progetto java nel computer. <br>
 </div>
 
