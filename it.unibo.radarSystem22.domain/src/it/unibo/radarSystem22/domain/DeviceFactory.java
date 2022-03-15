@@ -1,5 +1,6 @@
 package it.unibo.radarSystem22.domain;
 
+import it.unibo.radarSystem22.domain.concrete.RadarDisplay;
 import it.unibo.radarSystem22.domain.interfaces.*;
 import it.unibo.radarSystem22.domain.models.LedModel;
 import it.unibo.radarSystem22.domain.models.SonarModel;
@@ -13,7 +14,7 @@ public class DeviceFactory {
 		return SonarModel.create();
 	}
 
-	public static IRadarDisplay createRadarDisplay() {
-		return null;
+	public static IRadarDisplay createRadarGui() {
+		return RadarDisplay.getRadarDisplay();
 	}
 }

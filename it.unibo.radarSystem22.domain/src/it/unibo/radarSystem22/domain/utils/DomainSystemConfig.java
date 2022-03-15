@@ -18,7 +18,7 @@ public class DomainSystemConfig {
 	public static int sonarDelay          =  100;     
 	public static int sonarDistanceMax    =  150;     
 	public static boolean sonarObservable =  false;     
-	public static int DLIMIT              =  30;  
+	public static int DLIMIT              =  70;  
 	public static int testingDistance     =  50;  
  
 	public static boolean tracing         = false;	
@@ -26,12 +26,13 @@ public class DomainSystemConfig {
 	
 
 	public static void setTheConfiguration(  ) {
-		setTheConfiguration("DomainSystemConfig.json");
+		setTheConfiguration("../DomainSystemConfig.json");
 	}
 	
 	public static void setTheConfiguration( String resourceName ) {
 		Reader fis = null;
 		try {
+			ColorsOut.out("%%% setTheConfiguration from file:" + resourceName);
 			if(  fis == null ) {
  				 fis = new FileReader(new File(resourceName));
 			}

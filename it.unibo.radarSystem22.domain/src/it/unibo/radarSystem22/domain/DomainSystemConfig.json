@@ -19,7 +19,7 @@
 "tempBrokerAddr"   : "tcp://broker.hivemq.com",
 
 
-"simulation"       : "true",
+"simulation"       : "false",
 "sonarDistanceMax" : "150",
 "sonarDelay"       : "200",
 "DLIMIT"           : "70",

@@ -34,7 +34,7 @@ public class TestSonarMock {
 		int v0=sonar.getDistance().getVal();
 		int sonarDistance=sonar.getDistance().getVal();
 		assertEquals(90,sonarDistance);
-		while(sonarDistance>=DomainSystemConfig.DLIMIT) {
+		while(sonarDistance>0) {
 			sonarDistance = sonar.getDistance().getVal();
 			System.out.println("sonar distance: "+sonarDistance);
 			int vExceptedMin=v0-INTERVAL;
@@ -43,7 +43,7 @@ public class TestSonarMock {
 			v0=sonarDistance;
 			BasicUtils.delay(DomainSystemConfig.sonarDelay/2); //sonar delay
 		}
-		assertTrue(sonarDistance<DomainSystemConfig.DLIMIT);
+		assertTrue(sonarDistance<=0);
 	}
 	
 	@Test
