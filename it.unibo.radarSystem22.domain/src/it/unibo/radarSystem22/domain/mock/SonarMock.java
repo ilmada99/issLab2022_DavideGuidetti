@@ -8,45 +8,50 @@ import it.unibo.radarSystem22.domain.utils.DomainSystemConfig;
 
 public class SonarMock extends SonarModel implements ISonar {
 	private int value;
-	private final int INTERVAL=1; //diminuzione progressiva del sonar
-	
+	private final int INTERVAL = 1; // diminuzione progressiva del sonar
+
 	@Override
 	protected void sonarSetUp() {
-		currentValue=new Distance(90);
-		value=currentValue.getVal();
+		currentValue = new Distance(90);
+		value = currentValue.getVal();
 	}
 
 	@Override
 	protected void sonarProduce() {
-		value = currentValue.getVal()-INTERVAL;
-		currentValue=new Distance(value);
-		this.setState(value >= DomainSystemConfig.DLIMIT); 
-		//System.out.println("state: "+DomainSystemConfig.DLIMIT);
-		BasicUtils.delay(DomainSystemConfig.sonarDelay); //delay tra una rilezione ed una altra
+		if (DomainSystemConfig.testing) {
+			currentValue = new Distance(DomainSystemConfig.testingDistance);
+			state = false; //oneshot
+		} else {
+			value = currentValue.getVal() - INTERVAL;
+			currentValue = new Distance(value);
+			this.setState(value >= DomainSystemConfig.DLIMIT);
+			// System.out.println("state: "+DomainSystemConfig.DLIMIT);
+			BasicUtils.delay(DomainSystemConfig.sonarDelay); // delay tra una rilezione ed una altra
+		}
 	}
-	
+
 	public void activate() {
 		this.setState(true);
-		System.out.println("SonarMock\nSTATE: "+state);
-		//utilizzo thread per rilevazione sonar
+		System.out.println("SonarMock\nSTATE: " + state);
+		// utilizzo thread per rilevazione sonar
 		new Thread() {
 			public void run() {
 				while (state) {
-					//inizio rilevazione sonar
+					// inizio rilevazione sonar
 					sonarProduce();
 				}
-				//tempo tra una rilevazione ed un'altra
-				BasicUtils.delay(250);
+				// tempo tra una rilevazione ed un'altra
+				BasicUtils.delay(DomainSystemConfig.sonarDelay);
 			}
 		}.start();
 	}
 
 	public void deactivate() {
 		this.setState(false);
-		System.out.println("STATE: "+getValue());
+		System.out.println("STATE: " + getValue());
 	}
 
-	private int getValue(){
+	private int getValue() {
 		return this.value;
 	}
 }

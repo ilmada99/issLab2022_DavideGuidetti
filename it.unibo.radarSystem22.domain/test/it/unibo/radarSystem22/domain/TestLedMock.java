@@ -14,6 +14,7 @@ public class TestLedMock {
 	@Before
 	public void up() {
 		System.out.println("up");
+		//DomainSystemConfig.setTheConfiguration();
 	}
 	
 	@After

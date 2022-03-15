@@ -11,7 +11,8 @@ import it.unibo.radarSystem22.domain.utils.BasicUtils;
 import it.unibo.radarSystem22.domain.utils.DomainSystemConfig;
 
 public class TestSonarMock {
-
+	private final int INTERVAL = 1; // diminuzione progressiva del sonar
+	
 	@Before
 	public void up() {
 		System.out.println("up");
@@ -30,12 +31,17 @@ public class TestSonarMock {
 	    ISonar sonar = DeviceFactory.createSonar();
 	    sonar.activate();
 		assertTrue(sonar.isActive());
+		int v0=sonar.getDistance().getVal();
 		int sonarDistance=sonar.getDistance().getVal();
 		assertEquals(90,sonarDistance);
 		while(sonarDistance>=DomainSystemConfig.DLIMIT) {
 			sonarDistance = sonar.getDistance().getVal();
 			System.out.println("sonar distance: "+sonarDistance);
-			BasicUtils.delay(250);
+			int vExceptedMin=v0-INTERVAL;
+			int vExceptedMax=v0+INTERVAL;
+			assertTrue(sonarDistance<=vExceptedMax && sonarDistance>=vExceptedMin);
+			v0=sonarDistance;
+			BasicUtils.delay(DomainSystemConfig.sonarDelay/2); //sonar delay
 		}
 		assertTrue(sonarDistance<DomainSystemConfig.DLIMIT);
 	}
