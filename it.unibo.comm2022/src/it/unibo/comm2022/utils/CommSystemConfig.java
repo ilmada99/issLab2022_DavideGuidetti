@@ -22,7 +22,7 @@ public class CommSystemConfig {
 	}
 	
 	public static void setTheConfiguration( String resourceName ) {
-		//Nella distribuzione resourceName è in una dir che include la bin  
+		//Nella distribuzione resourceName ï¿½ in una dir che include la bin  
 		FileInputStream fis = null;
 		try {
 			ColorsOut.out("%%% setTheConfiguration from file:" + resourceName);
