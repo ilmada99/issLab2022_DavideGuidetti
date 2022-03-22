@@ -1,5 +1,6 @@
 {
 "protocolType"     : "tcp",
 "mqttBrokerAddr"   : "tcp://localhost:1883",
-"tracing"          : "false"
+"tracing"          : "false",
+"max_len_udp"      : "256"
 }

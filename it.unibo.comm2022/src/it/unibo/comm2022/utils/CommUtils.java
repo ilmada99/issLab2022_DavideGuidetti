@@ -13,5 +13,8 @@ public class CommUtils {
 	public static boolean isTcp() {
 		return CommSystemConfig.protcolType==ProtocolType.tcp ;
 	}
+	public static boolean isUdp() {
+		return CommSystemConfig.protcolType==ProtocolType.udp ;
+	}
 
 }

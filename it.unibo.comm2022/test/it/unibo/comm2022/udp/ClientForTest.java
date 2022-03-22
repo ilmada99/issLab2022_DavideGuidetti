@@ -1,4 +1,4 @@
-package it.unibo.comm2022.tcp;
+package it.unibo.comm2022.udp;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -13,23 +13,22 @@ import it.unibo.comm2022.utils.ColorsOut;
 class ClientForTest {
 	private Interaction2021 conn;
 
-	public void doWorkWithServerOff(String name, int ntimes) {
+	public void doWorkWithServerOff(String name) {
 		try {
-			connect(ntimes);
 			fail(); // non deve connttersi ...
 		} catch (Exception e) {
 			ColorsOut.outerr(name + " | ERROR (expected)" + e.getMessage());
 		}
 	}
 
-	protected void connect(int ntimes) throws Exception {
-		conn = TcpClientSupport.connect("localhost", TestTcpSupports.testPort, ntimes);
+	protected void connect() throws Exception {
+		conn = UdpClientSupport.connect("localhost", TestUdpSupports.testPort);
 
 	}
 
-	public void doWorkWithServerOn(String name, int ntimes) {
+	public void doWorkWithServerOn(String name) {
 		try {
-			connect(ntimes); // 1
+			connect(); //1
 			String request = "hello_from_" + name;
 			conn.forward(request); // 2
 			String answer = conn.receiveMsg(); // 3

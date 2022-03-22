@@ -1,4 +1,4 @@
-package it.unibo.comm2022.tcp;
+package it.unibo.comm2022.udp;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -12,9 +12,9 @@ import it.unibo.comm2022.interfaces.Interaction2021;
 public class ClientDoingRequest {
 	public static boolean withserver = true;
 
-	public void doWork(String name, int nattempts) {
+	public void doWork(String name) {
 		try {
-			Interaction2021 conn = TcpClientSupport.connect("localhost", TestTcpSupportsForRequest.testPort, nattempts);
+			Interaction2021 conn = UdpClientSupport.connect("localhost", TestUdpSupportsForRequest.testPort);
 			String request = "hello_from_" + name;
 			System.out.println(name + " | forward the request=" + request + " on conn:" + conn);
 			conn.forward(request);

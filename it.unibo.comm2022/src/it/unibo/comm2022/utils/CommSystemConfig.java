@@ -16,6 +16,7 @@ public class CommSystemConfig {
 	public static int serverTimeOut        =  600000;  //10 minuti	
  	public static ProtocolType protcolType = ProtocolType.tcp;
  	public static boolean tracing          = false;
+ 	public static int max_len_udp          = 256;
 
 	public static void setTheConfiguration(  ) {
 		setTheConfiguration("../CommSystemConfig.json");
@@ -36,11 +37,13 @@ public class CommSystemConfig {
 	        
 	        mqttBrokerAddr   = object.getString("mqttBrokerAddr");
 	        tracing          = object.getBoolean("tracing");
+	        max_len_udp	 	 = object.getInt("max_len_udp");
 	        
 	        switch( object.getString("protocolType") ) {
 		        case "tcp"  : protcolType = ProtocolType.tcp; break;
 		        case "coap" : protcolType = ProtocolType.coap; break;
 		        case "mqtt" : protcolType = ProtocolType.mqtt; break;
+		        case "udp"  : protcolType = ProtocolType.udp; break;
 	        }
  	        
 		} catch (FileNotFoundException e) {
