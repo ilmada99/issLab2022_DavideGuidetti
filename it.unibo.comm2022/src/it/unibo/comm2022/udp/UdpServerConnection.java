@@ -43,7 +43,6 @@ public class UdpServerConnection extends UdpConnection {
 				line = new String(packet.getData(), 0, packet.getLength());
 				packet = null;
 				if (line.equals(CommSystemConfig.close)) {
-					ColorsOut.out("receive message clousure udp connection", ColorsOut.GREEN);
 					close();
 				}
 			}
