@@ -6,6 +6,7 @@ import java.net.DatagramSocket;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 import it.unibo.comm2022.utils.ColorsOut;
+import it.unibo.comm2022.utils.CommSystemConfig;
 
 public class UdpServerConnection extends UdpConnection {
 	private Map<UdpEndpoint, UdpServerConnection> connMap;
@@ -41,6 +42,9 @@ public class UdpServerConnection extends UdpConnection {
 			} else {
 				line = new String(packet.getData(), 0, packet.getLength());
 				packet = null;
+				if (line.equals(CommSystemConfig.close)) {
+					close();
+				}
 			}
 			waitToEnterNewPacket.release();
 			return line;

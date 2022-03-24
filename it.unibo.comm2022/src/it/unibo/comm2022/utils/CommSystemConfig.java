@@ -17,6 +17,7 @@ public class CommSystemConfig {
  	public static ProtocolType protcolType = ProtocolType.tcp;
  	public static boolean tracing          = false;
  	public static int max_len_udp          = 256;
+ 	public static int close			  	   = 10101010;
 
 	public static void setTheConfiguration(  ) {
 		setTheConfiguration("../CommSystemConfig.json");
@@ -38,6 +39,7 @@ public class CommSystemConfig {
 	        mqttBrokerAddr   = object.getString("mqttBrokerAddr");
 	        tracing          = object.getBoolean("tracing");
 	        max_len_udp	 	 = object.getInt("max_len_udp");
+	        close		     = object.getInt("close");
 	        
 	        switch( object.getString("protocolType") ) {
 		        case "tcp"  : protcolType = ProtocolType.tcp; break;

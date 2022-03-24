@@ -2,5 +2,6 @@
 "protocolType"     : "tcp",
 "mqttBrokerAddr"   : "tcp://localhost:1883",
 "tracing"          : "false",
-"max_len_udp"      : "256"
+"max_len_udp"      : "256",
+"close"			   : "10101010"
 }

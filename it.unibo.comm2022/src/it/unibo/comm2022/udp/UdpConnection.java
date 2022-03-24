@@ -69,6 +69,13 @@ public class UdpConnection implements Interaction2021 {
 
 	@Override
 	public void close() {
+		byte[] buf = new byte[CommSystemConfig.close];
+		DatagramPacket packet = new DatagramPacket(buf, buf.length);
+		try {
+			socket.send(packet);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		closed = true;
 		socket.close();
 		ColorsOut.out("UdpConnection | CLOSED  ");
