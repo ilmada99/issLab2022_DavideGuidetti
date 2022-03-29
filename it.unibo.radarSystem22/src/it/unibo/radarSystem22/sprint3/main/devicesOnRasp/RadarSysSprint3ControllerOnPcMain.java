@@ -48,7 +48,7 @@ public class RadarSysSprint3ControllerOnPcMain implements IApplication{
 		DomainSystemConfig.simulation   	= false;
 		
 		RadarSystemConfig.DLIMIT      		= 70;  
-		RadarSystemConfig.RadarGuiRemote    = false;		
+		RadarSystemConfig.RadarGuiRemote    = true;		
 		RadarSystemConfig.raspAddr          = "192.168.43.167"; //"localhost"; //"192.168.1.9";		 	
 		RadarSystemConfig.protcolType       = ProtocolType.udp;	
 		

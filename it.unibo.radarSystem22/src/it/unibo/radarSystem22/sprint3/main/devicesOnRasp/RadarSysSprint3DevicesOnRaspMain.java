@@ -47,7 +47,7 @@ public class RadarSysSprint3DevicesOnRaspMain implements IApplication{
 	    	DomainSystemConfig.testing     = false;			
 	    	DomainSystemConfig.tracing     = false;			
 			DomainSystemConfig.sonarDelay  = 200;
-	    	DomainSystemConfig.ledGui      = false;		//se siamo su PC	
+	    	DomainSystemConfig.ledGui      = true;		//se siamo su PC	
 	
 			RadarSystemConfig.tracing           = false;		
 			RadarSystemConfig.RadarGuiRemote    = false;		
