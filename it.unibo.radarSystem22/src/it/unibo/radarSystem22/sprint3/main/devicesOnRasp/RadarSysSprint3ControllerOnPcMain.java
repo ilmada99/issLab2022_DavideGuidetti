@@ -34,6 +34,7 @@ public class RadarSysSprint3ControllerOnPcMain implements IApplication{
 		configure();
 		//start
 	    ActionFunction endFun = (n) -> { 
+	    	BasicUtils.showSystemInfo();
 	    	System.out.println(n); 
 	    	terminate(); 
 	    };
@@ -44,11 +45,11 @@ public class RadarSysSprint3ControllerOnPcMain implements IApplication{
 		DomainSystemConfig.testing      	= false;			
 		DomainSystemConfig.sonarDelay       = 200;
 		//Su PC
-		DomainSystemConfig.simulation   	= true;
+		DomainSystemConfig.simulation   	= false;
 		
 		RadarSystemConfig.DLIMIT      		= 70;  
 		RadarSystemConfig.RadarGuiRemote    = false;		
-		RadarSystemConfig.raspAddr          = "localhost"; //"192.168.1.9";		 	
+		RadarSystemConfig.raspAddr          = "192.168.43.167"; //"localhost"; //"192.168.1.9";		 	
 		RadarSystemConfig.protcolType       = ProtocolType.udp;	
 		
 		CommSystemConfig.tracing            = false;

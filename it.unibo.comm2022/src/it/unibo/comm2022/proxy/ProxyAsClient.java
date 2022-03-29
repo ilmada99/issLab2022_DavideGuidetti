@@ -40,9 +40,7 @@ protected ProtocolType protocol ;
 			}
 			case udp : {
 				int port = Integer.parseInt(entry);
-				//conn = new TcpConnection( new Socket( host, port ) ) ; //non fa attempts
-				conn = UdpClientSupport.connect(host,port);
-				ColorsOut.out(name + " |  setConnection "  + conn, ColorsOut.BLUE );		
+ 				conn = UdpClientSupport.connect(host,  port );  
 				break;
 			}
 			case coap : {
@@ -51,7 +49,7 @@ protected ProtocolType protocol ;
 			}
 			case mqtt : {
 				//La connessione col Broker viene stabilita in fase di configurazione
-				//La entry � quella definita per ricevere risposte;
+				//La entry è quella definita per ricevere risposte;
 				//ColorsOut.out(name+"  | ProxyAsClient connect MQTT entry=" + entry );
 				//conn = MqttConnection.getSupport();					
  				break;
@@ -91,7 +89,7 @@ protected ProtocolType protocol ;
 	public void close() {
 		try {
 			conn.close();
-			ColorsOut.out(name + " |  CLOSED " + conn  );
+			ColorsOut.out(name + " |  CLOSED " + conn   );
 		} catch (Exception e) {
 			ColorsOut.outerr( name+"  | sendRequestOnConnection ERROR=" + e.getMessage()  );		}
 	}

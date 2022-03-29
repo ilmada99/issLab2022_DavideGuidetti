@@ -43,15 +43,15 @@ public class RadarSysSprint3DevicesOnRaspMain implements IApplication{
 			RadarSystemConfig.setTheConfiguration(systemConfig);
 		}
 		if( domainConfig == null && systemConfig == null) {
-			DomainSystemConfig.simulation  = true;
+			DomainSystemConfig.simulation  = false;
 	    	DomainSystemConfig.testing     = false;			
 	    	DomainSystemConfig.tracing     = false;			
 			DomainSystemConfig.sonarDelay  = 200;
-	    	DomainSystemConfig.ledGui      = true;		//se siamo su PC	
+	    	DomainSystemConfig.ledGui      = false;		//se siamo su PC	
 	
 			RadarSystemConfig.tracing           = false;		
-			RadarSystemConfig.RadarGuiRemote    = true;		
-			RadarSystemConfig.protcolType       = ProtocolType.tcp;		
+			RadarSystemConfig.RadarGuiRemote    = false;		
+			RadarSystemConfig.protcolType       = ProtocolType.udp;		
 			
 			RadarSystemConfig.ledPort	  = 8010;
 		}
