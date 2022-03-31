@@ -19,7 +19,7 @@ import it.unibo.radarSystem22_4.comm.utils.ColorsOut;
  *  per i messaggi che costituiscono richieste
  *  
  *  Il ContextMsgHandler potrebbe inviare al RECEIVER  il messaggio in forma estesa
- *  ma il RECEIVER non sarebbe più quello usato nella versione precedente.
+ *  ma il RECEIVER non sarebbe piï¿½ quello usato nella versione precedente.
  */
 
 public class ContextMsgHandler extends ApplMsgHandler implements IContextMsgHandler{
@@ -32,7 +32,7 @@ public class ContextMsgHandler extends ApplMsgHandler implements IContextMsgHand
 
 	@Override
 	public void elaborate( IApplMessage msg, Interaction2021 conn ) {
-		ColorsOut.out(name+" | elaborateeeeee ApplMessage:" + msg + " conn=" + conn, ColorsOut.BLUE);
+		ColorsOut.out(name+" | elaborate ApplMessage:" + msg + " conn=" + conn, ColorsOut.BLUE);
 		//msg( MSGID, MSGTYPE, SENDER, RECEIVER, CONTENT, SEQNUM )
  		String dest  = msg.msgReceiver();
 		//ColorsOut.out(name +  " | elaborate " + msg.msgContent() + " dest="+dest, ColorsOut.ANSI_PURPLE);

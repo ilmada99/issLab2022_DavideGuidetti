@@ -16,68 +16,79 @@ import it.unibo.radarSystem22_4.comm.utils.BasicUtils;
 import it.unibo.radarSystem22_4.comm.utils.CommSystemConfig;
 import it.unibo.radarSystem22.domain.DeviceFactory;
 
-public class RadarSystemMainDevsCtxOnRasp implements IApplication{
+public class RadarSystemMainDevsCtxOnRasp implements IApplication {
 	private ISonar sonar;
-	private ILed  led ;
-  	
- 	private IContext contextServer;
+	private ILed led;
+	private IContext contextServer;
 
-	
 	@Override
 	public String getName() {
-		return this.getClass().getName() ; 
+		return this.getClass().getName();
 	}
+
 	@Override
-	public void doJob(String domainConfig, String systemConfig ) {
-		setup(domainConfig,   systemConfig);
+	public void doJob(String domainConfig, String systemConfig) {
+		setup(domainConfig, systemConfig);
 		configure();
-		execute();		
+		execute();
 	}
-	
-	public void setup( String domainConfig, String systemConfig )  {
-	    BasicUtils.aboutThreads(getName() + " | Before setup ");
-		if( domainConfig != null ) {
+
+	public void setup(String domainConfig, String systemConfig) {
+		BasicUtils.aboutThreads(getName() + " | Before setup ");
+		if (domainConfig != null) {
 			DomainSystemConfig.setTheConfiguration(domainConfig);
 		}
-		if( systemConfig != null ) {
+		if (systemConfig != null) {
 			RadarSystemConfig.setTheConfiguration(systemConfig);
 		}
-		if( domainConfig == null && systemConfig == null) {
-			DomainSystemConfig.simulation  = true;
-	    	DomainSystemConfig.testing     = false;			
-	    	DomainSystemConfig.tracing     = false;			
-			DomainSystemConfig.sonarDelay  = 200;
-	    	DomainSystemConfig.ledGui      = true;		//se siamo su PC	
-	    	
-		    CommSystemConfig.tracing       = true;
+		if (domainConfig == null && systemConfig == null) {
+			DomainSystemConfig.simulation = true;
+			DomainSystemConfig.testing = false;
+			DomainSystemConfig.tracing = false;
+			DomainSystemConfig.sonarDelay = 200;
+			DomainSystemConfig.ledGui = false; // se siamo su PC
 
-		    RadarSystemConfig.RadarGuiRemote   = true;		
- 			RadarSystemConfig.ctxServerPort    = 8756;
- 			RadarSystemConfig.protcolType      = ProtocolType.tcp;
+			CommSystemConfig.tracing = true;
+
+			RadarSystemConfig.RadarGuiRemote = false;
+			RadarSystemConfig.ctxServerPort = 8756;
+			RadarSystemConfig.raspAddr = "localhost";
+			
+			RadarSystemConfig.protcolType = ProtocolType.tcp;
 		}
- 
+
 	}
-	protected void configure() {		
- 	   led   = DeviceFactory.createLed(); 
-	   sonar = DeviceFactory.createSonar();
-   
- 	   //contextServer  = new TcpContextServer("TcpCtxServer",RadarSystemConfig.ctxServerPort); 	   
-	   contextServer = new EnablerContext("ctx",""+RadarSystemConfig.ctxServerPort,
- 			                  RadarSystemConfig.protcolType, new ContextMsgHandler("ctxH"));
-		//Registrazione dei componenti presso il contesto
- 	   IApplMsgHandler sonarHandler = SonarApplHandler.create("sonarH",sonar); 
-	   IApplMsgHandler ledHandler   = LedApplHandler.create("ledH",led);		  
-	   contextServer.addComponent("sonar", sonarHandler);	//sonar NAME mandatory
-	   contextServer.addComponent("led",   ledHandler);		//led NAME mandatory
+
+	protected void configure() {
+		led = DeviceFactory.createLed();
+		sonar = DeviceFactory.createSonar();
+
+		BasicUtils.aboutThreads("After devices creation");
+
+		// contextServer = new
+		// TcpContextServer("TcpCtxServer",RadarSystemConfig.ctxServerPort);
+		contextServer = new EnablerContext("ctx", "" + RadarSystemConfig.ctxServerPort, RadarSystemConfig.protcolType,
+				new ContextMsgHandler("ctxH"));
+
+		BasicUtils.aboutThreads("After context creation");
+
+		// Registrazione dei componenti presso il contesto
+		IApplMsgHandler sonarHandler = SonarApplHandler.create("sonarH", sonar);
+		IApplMsgHandler ledHandler = LedApplHandler.create("ledH", led);
+		contextServer.addComponent("sonar", sonarHandler); // sonar NAME mandatory
+		contextServer.addComponent("led", ledHandler); // led NAME mandatory
 	}
-	
-	protected void execute() {		
+
+	protected void execute() {
 		contextServer.activate();
+		BasicUtils.aboutThreads("After context activation");
 	}
-	
-	public static void main( String[] args) throws Exception {
-		//ColorsOut.out("Please set RadarSystemConfig.pcHostAddr in RadarSystemConfig.json");
-		new RadarSystemMainDevsCtxOnRasp().doJob(null,null);
- 	}
+
+	public static void main(String[] args) throws Exception {
+		// ColorsOut.out("Please set RadarSystemConfig.pcHostAddr in
+		// RadarSystemConfig.json");
+		BasicUtils.aboutThreads("Before main startup");
+		new RadarSystemMainDevsCtxOnRasp().doJob(null, null);
+	}
 
 }

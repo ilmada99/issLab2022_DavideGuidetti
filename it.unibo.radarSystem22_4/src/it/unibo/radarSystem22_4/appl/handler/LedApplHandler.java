@@ -2,6 +2,7 @@ package it.unibo.radarSystem22_4.appl.handler;
 
 
 import it.unibo.radarSystem22.domain.interfaces.ILed;
+import it.unibo.radarSystem22.domain.utils.BasicUtils;
 import it.unibo.radarSystem22.domain.utils.ColorsOut;
 import it.unibo.radarSystem22_4.appl.interpreter.LedApplInterpreter;
 import it.unibo.radarSystem22_4.comm.ApplMsgHandler;
@@ -28,6 +29,7 @@ private IApplInterpreter ledInterpr;
  	@Override
 	public void elaborate(IApplMessage message, Interaction2021 conn) {
 		ColorsOut.out(name + " | elaborate message=" + message + " conn=" + conn , ColorsOut.GREEN);
+		BasicUtils.aboutThreads("After LedApplHandler elaborate");
  		if( message.isRequest() ) 
  			sendAnswerToClient( ledInterpr.elaborate(message), conn );
  		else ledInterpr.elaborate(message);
