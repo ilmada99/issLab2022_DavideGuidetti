@@ -1,8 +1,9 @@
-package it.unibo.radarSystem22.domain;
+package it.unibo.radarSystem22.domain.observer;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unibo.radarSystem22.domain.Distance;
 import it.unibo.radarSystem22.domain.interfaces.IDistance;
 import it.unibo.radarSystem22.domain.interfaces.ISonarObserver;
 

@@ -10,6 +10,8 @@ import it.unibo.radarSystem22.domain.interfaces.ISonar;
 import it.unibo.radarSystem22.domain.interfaces.ISonarObserver;
 import it.unibo.radarSystem22.domain.models.SonarObservable;
 import it.unibo.radarSystem22.domain.models.SonarObservablePubSub;
+import it.unibo.radarSystem22.domain.observer.SonarObserver;
+import it.unibo.radarSystem22.domain.observer.SonarObserverBroker;
 import it.unibo.radarSystem22.domain.utils.BasicUtils;
 import it.unibo.radarSystem22.domain.utils.DomainSystemConfig;
 

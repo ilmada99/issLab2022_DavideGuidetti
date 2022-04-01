@@ -1,4 +1,4 @@
-package it.unibo.radarSystem22.domain;
+package it.unibo.radarSystem22.domain.observer;
 
 import it.unibo.radarSystem22.domain.interfaces.IDistance;
 import it.unibo.radarSystem22.domain.interfaces.ISonarObserver;
