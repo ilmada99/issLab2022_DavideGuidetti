@@ -44,18 +44,28 @@ public class TestSonarObservableMock {
 			assertEquals(90,observer1.getVal());
 			assertEquals(90,observer2.getVal());
 			while(observer1.getVal()>0 && observer2.getVal()>0) {
+				if (observer1.getVal()<=45)
+				{
+					((SonarObservable)sonar).removeObserver(observer2);
+				}
 				sonarDistance = observer1.getVal();
 				//System.out.println("sonar distance: "+sonarDistance);
 				int vExceptedMin=v0-INTERVAL;
 				int vExceptedMax=v0+INTERVAL;
 				assertTrue(sonarDistance<=vExceptedMax && sonarDistance>=vExceptedMin);
 				assertTrue(observer1.getVal()<=vExceptedMax && observer1.getVal()>=vExceptedMin);
-				assertTrue(observer2.getVal()<=vExceptedMax && observer2.getVal()>=vExceptedMin);
-				assertTrue(observer2.getVal()==observer1.getVal()); //check same value observer
+				
+				if (observer1.getVal()<=45){
+					assertTrue(observer2.getVal()>=observer1.getVal());
+				}else {
+					assertTrue(observer2.getVal()<=vExceptedMax && observer2.getVal()>=vExceptedMin);
+				}
+				
+				
 				v0=sonarDistance;
 				BasicUtils.delay(DomainSystemConfig.sonarDelay/2); //sonar delay
 			}
-			assertTrue(observer1.getVal()<=0 && observer2.getVal()<=0);
+			assertTrue(observer1.getVal()<=0 && observer2.getVal()<=45);
 		}
 		
 		@Test
