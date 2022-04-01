@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.radarSystem22.domain.Distance;
-import it.unibo.radarSystem22.domain.concrete.SonarConcrete;
 import it.unibo.radarSystem22.domain.concrete.SonarObservableConcrete;
 import it.unibo.radarSystem22.domain.interfaces.*;
-import it.unibo.radarSystem22.domain.mock.SonarMock;
 import it.unibo.radarSystem22.domain.mock.SonarObservableMock;
 import it.unibo.radarSystem22.domain.utils.BasicUtils;
 import it.unibo.radarSystem22.domain.utils.ColorsOut;
