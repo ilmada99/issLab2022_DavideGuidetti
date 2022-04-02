@@ -16,6 +16,8 @@ import it.unibo.radarSystem22.domain.utils.DomainSystemConfig;
 
 public class TestSonarObservableMockPubSub {
 		private final int INTERVAL = 1; // diminuzione progressiva del sonar
+		private final int DTESTING1 = 70;
+		private final int DTESTING2 = 35;
 		
 		@Before
 		public void up() {
@@ -26,6 +28,27 @@ public class TestSonarObservableMockPubSub {
 		public void down() {
 			System.out.println("down");
 		}
+		
+		@Test
+		public void testPlanMock() {
+			System.out.println("TestPlanMock");
+			// DomainSystemConfig.simulation = true;
+			ISonar sonar = DeviceFactory.createObservablePubSubSonar();
+		    SonarObserverBroker sob=((SonarObservablePubSub)sonar).getSonarObserverBroker();
+		    ISonarObserver observer1 = new SonarObserver("0");
+			ISonarObserver observer2 = new SonarObserver("1");
+			sob.addObserver(observer1);
+			sob.addObserver(observer2);
+
+			((SonarObservablePubSub) sonar).setTestUpdateDistance(DTESTING1);
+			assertEquals(DTESTING1, observer1.getVal());
+			assertEquals(DTESTING1, observer2.getVal());
+			BasicUtils.delay(DomainSystemConfig.sonarDelay/2); //sonar delay
+			((SonarObservablePubSub) sonar).setTestUpdateDistance(DTESTING2);
+			assertEquals(DTESTING2, observer1.getVal());
+			assertEquals(DTESTING2, observer2.getVal());
+		}
+
 		
 		@Test
 		public void testSonarMockOn() {

@@ -41,6 +41,10 @@ public abstract class SonarObservablePubSub implements ISonar {
 		ColorsOut.out("SonarModel | updateDistance " + d, ColorsOut.BLUE);
 		sob.udpate(curVal);
 	}
+	
+	public void setTestUpdateDistance(int d) {
+		this.updateDistance(d);
+	}
 
 	protected abstract void sonarSetUp();
 

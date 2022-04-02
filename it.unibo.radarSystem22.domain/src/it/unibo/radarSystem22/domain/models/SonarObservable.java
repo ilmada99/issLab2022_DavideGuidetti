@@ -55,6 +55,10 @@ public abstract class SonarObservable implements ISonar {
             observer.update(this.curVal);
         }
 	}
+	
+	public void setTestUpdateDistance(int d) {
+		this.updateDistance(d);
+	}
 
 	protected abstract void sonarSetUp();
 
