@@ -14,9 +14,10 @@ import it.unibo.radarSystem22.domain.utils.DomainSystemConfig;
 public abstract class SonarObservable implements ISonar {
 	protected IDistance curVal = new Distance(90);
 	protected boolean stopped = true;
+	private final int DELTA = 0;
 
 	private List<ISonarObserver> observers = new ArrayList<>();
-	
+
 	public void addObserver(ISonarObserver observer) {
 		observer.update(this.curVal);
 		this.observers.add(observer);
@@ -49,13 +50,15 @@ public abstract class SonarObservable implements ISonar {
 	}
 
 	protected void updateDistance(int d) {
-		curVal = new Distance(d);
-		ColorsOut.out("SonarModel | updateDistance " + d, ColorsOut.BLUE);
-		for (ISonarObserver observer : this.observers) {
-            observer.update(this.curVal);
-        }
+		if (Math.abs(curVal.getVal() - d) > DELTA) { //check valore significativo
+			curVal = new Distance(d);
+			ColorsOut.out("SonarModel | updateDistance " + d, ColorsOut.BLUE);
+			for (ISonarObserver observer : this.observers) {
+				observer.update(this.curVal);
+			}
+		}
 	}
-	
+
 	public void setTestUpdateDistance(int d) {
 		this.updateDistance(d);
 	}

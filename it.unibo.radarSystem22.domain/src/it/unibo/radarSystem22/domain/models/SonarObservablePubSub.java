@@ -13,7 +13,8 @@ public abstract class SonarObservablePubSub implements ISonar {
 	protected IDistance curVal = new Distance(90);
 	protected boolean stopped = true;
 	private SonarObserverBroker sob = new SonarObserverBroker();
-
+	private final int DELTA = 0;
+	
 	public static ISonar create() {
 		if (DomainSystemConfig.simulation)
 			return createSonarObservableMockPubSub();
@@ -37,11 +38,13 @@ public abstract class SonarObservablePubSub implements ISonar {
 	}
 
 	protected void updateDistance(int d) {
-		curVal = new Distance(d);
-		ColorsOut.out("SonarModel | updateDistance " + d, ColorsOut.BLUE);
-		sob.udpate(curVal);
+		if (Math.abs(curVal.getVal() - d) > DELTA) { // check valore significativo
+			curVal = new Distance(d);
+			ColorsOut.out("SonarModel | updateDistance " + d, ColorsOut.BLUE);
+			sob.udpate(curVal);
+		}
 	}
-	
+
 	public void setTestUpdateDistance(int d) {
 		this.updateDistance(d);
 	}
@@ -49,7 +52,7 @@ public abstract class SonarObservablePubSub implements ISonar {
 	protected abstract void sonarSetUp();
 
 	protected abstract void sonarProduce();
-	
+
 	public SonarObserverBroker getSonarObserverBroker() {
 		return this.sob;
 	}
