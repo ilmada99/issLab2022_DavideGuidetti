@@ -1,12 +1,10 @@
 package it.unibo.radarSystem22.domain.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import it.unibo.radarSystem22.domain.Distance;
 import it.unibo.radarSystem22.domain.concrete.SonarObservableConcrete;
 import it.unibo.radarSystem22.domain.interfaces.*;
 import it.unibo.radarSystem22.domain.mock.SonarObservableMock;
+import it.unibo.radarSystem22.domain.observer.DistanceMeasured;
 import it.unibo.radarSystem22.domain.utils.BasicUtils;
 import it.unibo.radarSystem22.domain.utils.ColorsOut;
 import it.unibo.radarSystem22.domain.utils.DomainSystemConfig;
@@ -14,18 +12,8 @@ import it.unibo.radarSystem22.domain.utils.DomainSystemConfig;
 public abstract class SonarObservable implements ISonar {
 	protected IDistance curVal = new Distance(90);
 	protected boolean stopped = true;
+	private IDistanceMeasured distanceM = new DistanceMeasured();
 	private final int DELTA = 0;
-
-	private List<ISonarObserver> observers = new ArrayList<>();
-
-	public void addObserver(ISonarObserver observer) {
-		observer.update(this.curVal);
-		this.observers.add(observer);
-	}
-
-	public void removeObserver(ISonarObserver observer) {
-		this.observers.remove(observer);
-	}
 
 	public static ISonar create() {
 		if (DomainSystemConfig.simulation)
@@ -48,14 +36,16 @@ public abstract class SonarObservable implements ISonar {
 		ColorsOut.out("SonarModel | calling (specialized) sonarSetUp ", ColorsOut.BLUE);
 		sonarSetUp();
 	}
+	
+	public IDistanceMeasured getDistanceMeasured() {
+		return this.distanceM;
+	}
 
 	protected void updateDistance(int d) {
-		if (Math.abs(curVal.getVal() - d) > DELTA) { //check valore significativo
+		if (Math.abs(curVal.getVal() - d) > DELTA) { // check valore significativo
 			curVal = new Distance(d);
 			ColorsOut.out("SonarModel | updateDistance " + d, ColorsOut.BLUE);
-			for (ISonarObserver observer : this.observers) {
-				observer.update(this.curVal);
-			}
+			distanceM.update(curVal);
 		}
 	}
 

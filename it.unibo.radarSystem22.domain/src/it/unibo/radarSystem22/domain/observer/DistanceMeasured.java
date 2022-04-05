@@ -5,12 +5,14 @@ import java.util.List;
 
 import it.unibo.radarSystem22.domain.Distance;
 import it.unibo.radarSystem22.domain.interfaces.IDistance;
+import it.unibo.radarSystem22.domain.interfaces.IDistanceMeasured;
 import it.unibo.radarSystem22.domain.interfaces.ISonarObserver;
+import it.unibo.radarSystem22.domain.utils.ColorsOut;
 
-public class SonarObserverBroker {
-	private IDistance curVal = new Distance(90);
+public class DistanceMeasured implements IDistanceMeasured {
 	private List<ISonarObserver> observers = new ArrayList<>();
-	
+	protected IDistance curVal = new Distance(90);
+
 	public void addObserver(ISonarObserver observer) {
 		observer.update(this.curVal);
 		this.observers.add(observer);
@@ -19,12 +21,19 @@ public class SonarObserverBroker {
 	public void removeObserver(ISonarObserver observer) {
 		this.observers.remove(observer);
 	}
-	
-	public void udpate(IDistance curVal) {
+
+
+	@Override
+	public void update(IDistance curVal) {
 		this.curVal=curVal;
 		for (ISonarObserver observer : this.observers) {
             observer.update(this.curVal);
         }
 	}
-	
+
+	@Override
+	public int getVal() {
+		return this.curVal.getVal();
+	}
+
 }

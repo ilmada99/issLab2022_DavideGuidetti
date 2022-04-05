@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.unibo.radarSystem22.domain.interfaces.IDistanceMeasured;
 import it.unibo.radarSystem22.domain.interfaces.ISonar;
 import it.unibo.radarSystem22.domain.interfaces.ISonarObserver;
 import it.unibo.radarSystem22.domain.models.SonarObservable;
@@ -13,7 +14,8 @@ import it.unibo.radarSystem22.domain.observer.SonarObserver;
 import it.unibo.radarSystem22.domain.utils.BasicUtils;
 import it.unibo.radarSystem22.domain.utils.DomainSystemConfig;
 
-public class TestSonarObservableMock {
+
+public class TestSonarObserverMock {
 	private final int INTERVAL = 1; // diminuzione progressiva del sonar
 	private final int DTESTING1 = 70;
 	private final int DTESTING2 = 35;
@@ -33,15 +35,16 @@ public class TestSonarObservableMock {
 		System.out.println("TestPlanMock");
 		// DomainSystemConfig.simulation = true;
 		ISonar sonar = DeviceFactory.createObservableSonar();
+		IDistanceMeasured ditanceMeasured= ((SonarObservable) sonar).getDistanceMeasured();
 		ISonarObserver observer1 = new SonarObserver("0");
 		ISonarObserver observer2 = new SonarObserver("1");
-		((SonarObservable) sonar).addObserver(observer1);
-		((SonarObservable) sonar).addObserver(observer2);
+		ditanceMeasured.addObserver(observer1);
+		ditanceMeasured.addObserver(observer2);
 
 		((SonarObservable) sonar).setTestUpdateDistance(DTESTING1);
 		assertEquals(DTESTING1, observer1.getVal());
 		assertEquals(DTESTING1, observer2.getVal());
-		BasicUtils.delay(DomainSystemConfig.sonarDelay/2); //sonar delay
+		BasicUtils.delay(DomainSystemConfig.sonarDelay / 2); // sonar delay
 		((SonarObservable) sonar).setTestUpdateDistance(DTESTING2);
 		assertEquals(DTESTING2, observer1.getVal());
 		assertEquals(DTESTING2, observer2.getVal());
@@ -52,10 +55,11 @@ public class TestSonarObservableMock {
 		System.out.println("TestSonarObservableMockOn");
 		// DomainSystemConfig.simulation = true;
 		ISonar sonar = DeviceFactory.createObservableSonar();
+		IDistanceMeasured ditanceMeasured= ((SonarObservable) sonar).getDistanceMeasured();
 		ISonarObserver observer1 = new SonarObserver("0");
 		ISonarObserver observer2 = new SonarObserver("1");
-		((SonarObservable) sonar).addObserver(observer1);
-		((SonarObservable) sonar).addObserver(observer2);
+		ditanceMeasured.addObserver(observer1);
+		ditanceMeasured.addObserver(observer2);
 
 		sonar.activate();
 		assertTrue(sonar.isActive());
@@ -67,7 +71,7 @@ public class TestSonarObservableMock {
 		assertEquals(90, observer2.getVal());
 		while (observer1.getVal() > 0 && observer2.getVal() > 0) {
 			if (observer1.getVal() <= 45) {
-				((SonarObservable) sonar).removeObserver(observer2);
+				ditanceMeasured.removeObserver(observer2);
 			}
 			sonarDistance = observer1.getVal();
 			// System.out.println("sonar distance: "+sonarDistance);
@@ -97,5 +101,4 @@ public class TestSonarObservableMock {
 		sonar.deactivate();
 		assertTrue(!sonar.isActive());
 	}
-
 }

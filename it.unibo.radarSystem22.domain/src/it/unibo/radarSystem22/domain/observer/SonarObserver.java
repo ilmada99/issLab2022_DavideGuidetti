@@ -16,8 +16,9 @@ public class SonarObserver implements ISonarObserver {
 		this.curVal=curVal;
 		System.out.println("distance id "+this.id+": "+this.curVal.getVal());
 	}
-
+	
 	public int getVal() {
 		return this.curVal.getVal();
 	}
+
 }
