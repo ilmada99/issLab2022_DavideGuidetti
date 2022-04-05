@@ -37,7 +37,7 @@ public class UsingLedAndControllerOnPc {
 		new LedActor(ApplData.ledName);
 		new ControllerActor( ApplData.controllerName );
 		
-		//Creo altri Led per verificare che il numero di thread non aumenta
+		// Creo altri Led per verificare che il numero di thread non aumenta
 //		for( int i=1; i<=3; i++) {
 //			new LedActor(ApplData.ledName+"_"+i);
 //			Qak22Util.sendAMsg(ApplData.turnOnLed, ApplData.ledName+"_"+i  );
