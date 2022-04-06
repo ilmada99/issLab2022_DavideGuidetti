@@ -211,7 +211,11 @@ Si desidera realizzare una versione osservabile (SonarObservable) che soddisfi i
 
 - Il SonarObservable deve fornire valori di distanza solo quando questi si modificano in modo significativo;<br>
 
+- Per valori modificati in modo significativo intendiamo i valori che si discostano dall'ultimo valore rilevato al sonar  (iniziale punto oscuro dei requisiti) <br>
+
 - I componenti interessati ai valori di distanza prodotti dal SonarObservable sono denominati Observer e pssono risiedere sullo stesso nodo del SonarObservable (cioè sul RaspberryPi) o su un nodo remoto (ad esempio sul PC);<br>
+
+- Il funzionamento del SonarObservable deve essere testato in modo automatizzato ponendo un ostacolo a distanza fissa DTESTING1 davanti ad esso, controllando che tutti gli Observers ricevano il valore DTESTING1. Dopo un qualche tempo, si modifica la posizione dell’ostacolo a una nuova distanza DTESTING2 e si controlla che gli tutti gli Observers ricevano il valore DTESTING2. <br>
 
 </div>
 
@@ -229,6 +233,7 @@ Domande del committente:<br><br>
 
 - Come formalizzare questo approccio nel caso del SonarObservable? Mediante l'utilizzo di modelli, ovvero di un linguaggio comprensibile alla macchina. (Per esempio nel caso di java mediante l'utilizzo di classi e interfacce)<br>
 
+
 </div>
 
 <h2>Problem analysis</h2>
@@ -242,6 +247,18 @@ Il pattern observer può essere sviluppato in due modi diversi:<br>
 - Modo 2: SonarObservable che comunica con una entità terza che a sua volta registra le entità observer che devono essere aggiornate e le notifica con l'aggiornamento dei valore mediante il metodo update<br>
 <br>
 Il secondo approccio risulta preferibile avendo un miglior disaccoppiamente dei compiti ed andando quindi a rispettare il "singole responsability principle"<br>
+
+
+<h5>UPDATE LEZIONE (05/04/2022)</h5>
+A seguito della lezione è stata eliminata la prima versione dello observer mentre è stata modificata la seconda versione implementata (quella facente uso dell'elemento intermedio)<br>
+<br>
+Dovendo osservare i valori prodotti dal dispositivo e non il dispositivo stesso è stata introdotta una interfaccia osservabile IDistanceMeasured.<br>
+Il sonar (interfaccia ISonar) quindi comunicherà i valori prodotti a IDistanceMeasured che sua volta aggiornerà gli Observer (interfaccia ISonarObserver) <br>
+
+Questo porta a i seguenti vantaggi: <br>
+- Single responsability Principle<br>
+- Maggiore disaccoppiamento <br>
+
 
 </div>
 
@@ -273,7 +290,12 @@ Modo 2:<br><br>
 4) Costruisco la classe SonarObserver, implementando l'interfaccia ISonarObserver.<br>
 5) Creo la classe di test TestSonarObservableMockPubSub <br>
 
-
+<h5>UPDATE LEZIONE (05/04/2022)</h5>
+Partendo da come base il "modo 2" è stata implementata la seguente struttura:<br>
+1) costruisco l'interfaccia osservabile (mediante l'interfaccia IOsservable) IDistanceMeasured, implementata dalla classe DistanceMeasured<br>
+2) costruisco la casse SonarObservable, implementando l'interfaccia ISonar, che produce i valori comunicando con DistanceMeasured<br>
+3) costruisco l'interfaccia ISonarObserver, implementata dalla classe SonarObserver, che si metterà ad osservare IDistanceMeasured<br>
+4) Creo la classe di test TestSonarObserverMock seguendo le richieste della analisi dei requisiti <br>
 </div>
 
 <h2>Testing</h2> 
