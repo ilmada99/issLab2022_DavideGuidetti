@@ -7,18 +7,16 @@ import unibo.actor22.*;
 import unibo.actor22comm.utils.ColorsOut;
 import unibo.actor22comm.utils.CommUtils;
 
-/*
- * Il controller conosce SOLO I NOMI dei dispositivi 
- * (non ha riferimenti ai dispositivi-attori)
- */
-public class ControllerForSonarActor extends QakActor22 {
-
+public class ControllerForActor extends QakActor22 {
 	protected IRadarDisplay radar;
+	// protected IApplMessage getStateRequest ; //Eliminato per osservazione Filoni
 	protected boolean on = true;
+	protected IApplMessage getStateRequest;
 
-	public ControllerForSonarActor(String name) {
+	public ControllerForActor(String name) {
 		super(name);
 		radar = DeviceFactory.createRadarGui();
+		getStateRequest = Qak22Util.buildRequest(name,"ask", ApplData.reqLedState,ApplData.ledName);
 	}
 
 	@Override
@@ -50,10 +48,12 @@ public class ControllerForSonarActor extends QakActor22 {
 		radar.update(dStr, "60");
 		// LedUse case
 		if (d < RadarSystemConfig.DLIMIT) {
-			// forward(ApplData.turnOnLed);
+			forward(ApplData.turnOffLed);
 			forward(ApplData.deactivateSonar);
 		} else {
 			// forward(ApplData.turnOffLed);
+			//request(getStateRequest);
+			forward(ApplData.turnOnLed);
 			doControllerWork();
 		}
 	}
@@ -74,9 +74,16 @@ public class ControllerForSonarActor extends QakActor22 {
 	}
 
 	protected void doControllerWork() {
-		CommUtils.aboutThreads(getName() + " |  Before doControllerWork " + RadarSystemConfig.sonarObservable);
-		if (!RadarSystemConfig.sonarObservable)
-			request(ApplData.askDistance);
+		CommUtils.aboutThreads(getName() + " |  Before doControllerWork on=" + on);
+		CommUtils.delay(100);
+		request(ApplData.askDistance);
+
+	}
+
+	protected void elabAnswer(IApplMessage msg) {
+		CommUtils.delay(500);
+		System.out.println("messaggio: "+msg.msgContent());
+		doControllerWork();
 	}
 
 }
