@@ -11,7 +11,7 @@ import unibo.actor22comm.utils.CommUtils;
 
 
 public class ControllerObservableActor extends QakActor22{
-	private static final int ITERATIONS = 100;
+	private static final int IT = 100;
 	protected int numIter = -1;
 	protected int state = -1;
 	protected boolean on = true;
@@ -87,11 +87,10 @@ public class ControllerObservableActor extends QakActor22{
 			ledRequiredState = false;
 			forward( ApplData.turnOffLed ); //spegnimento
 		}
-		//request(getStateRequest);
 		IApplMessage msg = ApplData.buildDispatch(ApplData.controllerName, "cmd", dist.toString(), ApplData.radarName);
 		forward( msg );
 		numIter ++;
-		if (numIter > ITERATIONS) stop();
+		if (numIter > IT) stop();
 	}
 
 }

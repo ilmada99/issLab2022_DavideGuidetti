@@ -15,13 +15,8 @@ import unibo.actor22comm.utils.CommUtils;
 @ActorLocal(name = { ApplData.controllerName, ApplData.radarName }, implement = {
 		unibo.actor22.common.ControllerObservableActor.class, unibo.actor22.common.RadarActor.class })
 @ActorRemote(name = { ApplData.ledName, ApplData.sonarName },
-		// REMOTE 
-		host = { "192.168.1.115", "192.168.1.115" }, // RPI addresses
+		host = { "localhost", "localhost" }, 
 		port = { "" + ApplData.ctxPort, "" + ApplData.ctxPort }, protocol = { "TCP", "TCP" })
-		// TEST PC
-		// host= {"localhost","localhost"},
-		// port= { ""+ApplData.ctxPort, ""+ApplData.ctxPort},
-		// protocol={ "TCP" , "TCP" })
 
 public class RSActor22DistSonarObsOnPC {
 	private EnablerContextForActors ctx;

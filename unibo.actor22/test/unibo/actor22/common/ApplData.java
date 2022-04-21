@@ -43,7 +43,7 @@ public class ApplData {
 			sonarName);
 	public static final IApplMessage askDistance = Qak22Util.buildRequest(controllerName, "ask", reqDistance,
 			sonarName);
-
+	public static final IApplMessage reqDistanceSonar = buildRequest(controllerName, "cmd", reqDistance, sonarName);
 	public static final IApplMessage endWorkEvent = Qak22Util.buildEvent(controllerName, evEndWork, evEndWork);
 
 	private static int msgNum = 0;
@@ -89,7 +89,7 @@ public class ApplData {
 		String receiver = requestMsg.msgReceiver();
 		String reqId = requestMsg.msgId();
 		IApplMessage reply = null;
-		if (requestMsg.isRequest()) { 
+		if (requestMsg.isRequest()) {
 			reply = buildReply(receiver, reqId, answer, sender);
 		} else {
 			ColorsOut.outerr("Utils | prepareReply ERROR: message not a request");
