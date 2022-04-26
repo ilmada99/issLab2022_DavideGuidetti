@@ -48,7 +48,7 @@ public class ClientNaiveUsingHttp {
 				endmove = jsonEndmove.getBoolean("endmove");
 			}
 		} catch(Exception e){
-			ColorsOut.outerr("        IssHttpSupport | ERROR:" + e.getMessage());
+			ColorsOut.out("        IssHttpSupport | ERROR:" + e.getMessage());
 		}
 		return endmove;
 	}

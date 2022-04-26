@@ -110,14 +110,14 @@ BUSINESS LOGIC
 //    	request( moveForward( 400  ) );
 //     	request( moveBackward( 400 ) );
     	request( ApplData.turnLeft( 800  ) );
-    	Thread.sleep( 400 );
     	request( ApplData.stop( ) );
+//    	Thread.sleep( 500 );
      	request( ApplData.turnRight( 400 ) );
      	
 //     	requestSynch(  moveForward( 400  ) );
 //     	requestSynch(  moveBackward( 400  ) );
      	
-//     	Thread.sleep( 2500 );  //Give time to receive msgs from WEnv
+     	Thread.sleep( 2500 );  //Give time to receive msgs from WEnv
     	
     }
 
